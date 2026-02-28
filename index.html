@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+    <meta charset="utf-8">
+    <title>Playlist Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <ul id="hub"></ul>
+    <section id="detail">
+        <h2 id="detailTitle">Избери Playlist</h2>
+        <ul id="songs"></ul>
+    </section>
+<script>
+const playlists = [
+    { name: "Playlist 1", songs: [
+    "devojka",
+    "a ja ludujem",
+    "kad si rekla da me volis",
+   "ostani"] },
+    { name: "Playlist 2", songs: [
+        "bez tebe",
+        "nikotin",
+        "slavija",
+        "godinama"
+    ] },
+    { name: "Playlist 3", songs: [
+        "dugujem ti sebe",
+        "potrazi me", 
+        "dobro da nije neko vece zlo",
+        "rani na usnite"
+    ] },
+    { name: "Playlist 4", songs: 
+    [
+        "rano",
+        "ko nam brani", 
+        "milimetar",
+        "pjevam danju pjevam noci"
+    ] },
+    { name: "Playlist 5", songs: [
+        "bosnom behar",
+        "vo kosi da ti spijam",
+        "ledena",
+        "nesto lepi treba da se desi",
+        "jos ti se nadam",
+        "mjesecina"
+    ] },
+    { name: "Playlist 6", songs: [
+        "ruski rulet", 
+        "hitna",
+        "pisacu joj pisma duga"
+    ] },
+    { name: "Playlist 7", songs: [
+        "alkoholna poplava",
+        "magija",
+        "nikoj kako tebe",
+        "100%"
+    ] },
+    { name: "Playlist 8", songs: [
+        "ucini mi pravu stvar",
+        "pusti modu",
+        "drska zeno plava",
+        "kremen"
+    ] },
+    { name: "Playlist 9", songs: [
+        "grlica",
+        "lazu te",
+        "bezobrazno su zelene",
+        "noc do podne",
+        "slucajno",
+        "prekasno"
+    ] },
+    { name: "Playlist 10", songs: [
+        "minus i plus",
+        "dani su bez broja",
+        "nepravda",
+        "hajde da ludujemo",
+        "sto sad ljubav"
+    ] },
+    { name: "Playlist 11", songs: [
+        "ti nemas pojma",
+        "postela rozi",
+        "kucka neverna",
+        "ej bi si",
+        "zabava do besvest",
+        "dirlada"
+    ] },
+    { name: "Playlist 12", songs: [
+        "trazio si sve",
+        "koktel ljubavi",
+        "tek je 12 sati",
+        "kralja kokaina",
+        "ti si mi u mislima"
+    ] },
+    { name: "Playlist 13", songs: [
+        "sedam noci sedam dana",
+        "paranoja",
+        "a u medjuvremenu",
+        "imam samo jednu zelju", 
+        "mjerkam te mjerkam",
+    ] },
+    { name: "Playlist 14", songs: [
+        "bele ruze",
+        "ljepsa od noci",
+        "sam sam",
+        "litar krvi",
+        "posle tebe tugo moja"
+    ] },
+    { name: "Playlist 15", songs: [
+        "sredinom",
+        "cinim pravu stvar",
+        "u ljubav vjere nemam",
+        "92",
+        "usne boje vina",
+        "sve moje njeno je",
+        "nesto mi govori"
+    ] }
+];
+const hub = document.getElementById("hub");
+const detailTitle = document.getElementById("detailTitle");
+const songs = document.getElementById("songs");
+playlists.forEach((playlist, index) => {
+    const li = document.createElement("li");
+    const button = document.createElement("button");
+    button.textContent = playlist.name;
+    button.onclick = function() {
+        showPlaylist(index);
+    };
+    li.appendChild(button);
+    hub.appendChild(li);
+});
+function showPlaylist(index) {
+    const playlist = playlists[index];
+    detailTitle.textContent = playlist.name;
+    songs.innerHTML = "";
+    playlist.songs.forEach(song => {
+        const li = document.createElement("li");
+        li.textContent = song;
+        songs.appendChild(li);
+    });
+}
+</script>
+</body>
+</html>
