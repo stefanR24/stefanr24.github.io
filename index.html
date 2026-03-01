@@ -2,6 +2,7 @@
 <html lang="mk">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Playlist Hub</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,53 +15,52 @@
 <script>
 const playlists = [
     { name: "Playlist 1", songs: [
-    "devojka",
-    "a ja ludujem",
-    "kad si rekla da me volis",
-   "ostani"] },
+    "Devojka Gm",
+    "A ja ludujem Gm",
+    "Kad si rekla da me volis Gm",
+   "Ostani Gm"] },
     { name: "Playlist 2", songs: [
-        "bez tebe",
-        "nikotin",
-        "slavija",
-        "godinama"
+    
+        "Slavija Gm",
+        "Godinama Gm",
+        "Nikotin Am"
     ] },
     { name: "Playlist 3", songs: [
-        "dugujem ti sebe",
-        "potrazi me", 
-        "dobro da nije neko vece zlo",
-        "rani na usnite"
+        "Potrazi me Gism", 
+        "Dobro da nije neko vece zlo Am",
+        "Rani na usnite Hm"
     ] },
     { name: "Playlist 4", songs: 
     [
-        "rano",
-        "ko nam brani", 
-        "milimetar",
-        "pjevam danju pjevam noci"
+        "Rano A",
+        "Ko nam brani A", 
+        "Milimetar Gm",
+        "Pjevam danju pjevam noci Gm"
     ] },
     { name: "Playlist 5", songs: [
-        "bosnom behar",
-        "vo kosi da ti spijam",
-        "ledena",
-        "nesto lepi treba da se desi",
-        "jos ti se nadam",
-        "mjesecina"
+        "Bosnom behar Gm",
+        "Vo kosi da ti spijam Asm",
+        "Ledena D" ,
+        "Nesto lepi treba da se desi Gm",
+        "Jos ti se nadam Am",
+        "Mjesecina Gm"
     ] },
     { name: "Playlist 6", songs: [
-        "ruski rulet", 
-        "hitna",
-        "pisacu joj pisma duga"
+        "Ruski rulet Gm", 
+        "Hitna Gm",
+        "Pisacu joj pisma duga Gm"
     ] },
     { name: "Playlist 7", songs: [
-        "alkoholna poplava",
-        "magija",
-        "nikoj kako tebe",
-        "100%"
+        "Alkoholna poplava Hm",
+        "Magija Cm",
+        "Nikoj kako tebe Cm",
+        "100% Cm" 
     ] },
     { name: "Playlist 8", songs: [
-        "ucini mi pravu stvar",
-        "pusti modu",
-        "drska zeno plava",
-        "kremen"
+        "Ucini mi pravu stvar Gm",
+        "Pusti modu Gm",
+        "Drska zeno plava Gm",
+        "Kremen Am"
     ] },
     { name: "Playlist 9", songs: [
         "grlica",
@@ -114,6 +114,15 @@ const playlists = [
         "usne boje vina",
         "sve moje njeno je",
         "nesto mi govori"
+    ] },
+    { name: "Other", songs: [
+        "sredinom",
+        "cinim pravu stvar",
+        "u ljubav vjere nemam",
+        "92",
+        "usne boje vina",
+        "sve moje njeno je",
+        "nesto mi govori"
     ] }
 ];
 const hub = document.getElementById("hub");
@@ -130,14 +139,35 @@ playlists.forEach((playlist, index) => {
     hub.appendChild(li);
 });
 function showPlaylist(index) {
-    const playlist = playlists[index];
-    detailTitle.textContent = playlist.name;
-    songs.innerHTML = "";
-    playlist.songs.forEach(song => {
-        const li = document.createElement("li");
-        li.textContent = song;
-        songs.appendChild(li);
+  const playlist = playlists[index];
+  detailTitle.textContent = playlist.name;
+  songs.innerHTML = "";
+  const chordRegex = /\s([A-H](?:#|b|is|es|s)?m?)$/i;
+
+  playlist.songs.forEach(song => {
+    const li = document.createElement("li");
+    const match = song.match(chordRegex);
+
+    if (match) {
+      const chordPart = match[1];
+      const titlePart = song.replace(chordRegex, "");
+
+      li.innerHTML = `
+        <span class="song-title">${titlePart}</span>
+        <span class="song-chord">${chordPart}</span>
+      `;
+    } else {
+      li.innerHTML = `<span class="song-title">${song}</span>`;
+    }
+
+    songs.appendChild(li);
+  });
+  if (window.innerWidth < 768) {
+    document.getElementById("detail").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
     });
+  }
 }
 </script>
 </body>
