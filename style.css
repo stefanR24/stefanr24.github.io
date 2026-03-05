@@ -173,9 +173,9 @@ body{
 }
 #songs li{
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  flex-direction: column;   /* important */
+  align-items: stretch;
+  gap: 6px;
 }
 
 .song-title{
@@ -195,4 +195,22 @@ body{
 }
 html {
   scroll-behavior: smooth;
+}
+.song-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+baza i sistemi neno 
+.song-chord{
+  color: #3b82f6; /* your blue */
+  font-weight: 700;
+}
+
+.song-prog{
+  margin-top: 6px;
+  color: yellow; /* “some other color” */
+  font-size: 0.95em;
+  white-space: pre-wrap; /* keeps spacing/newlines if you ever have them */
 }
