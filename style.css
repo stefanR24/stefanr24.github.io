@@ -202,7 +202,6 @@ html {
   align-items: baseline;
   gap: 12px;
 }
-baza i sistemi neno 
 .song-chord{
   color: #3b82f6; /* your blue */
   font-weight: 700;
@@ -214,3 +213,4 @@ baza i sistemi neno
   font-size: 0.95em;
   white-space: pre-wrap; /* keeps spacing/newlines if you ever have them */
 }
+
