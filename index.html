@@ -63,57 +63,54 @@ const playlists = [
         "Kremen Am"
     ] },
     { name: "Playlist 9", songs: [
-        "grlica",
-        "lazu te",
-        "bezobrazno su zelene",
-        "noc do podne",
-        "slucajno",
-        "prekasno"
+        "Lazu te Gm",
+        "Bezobrazno su zelene B",
+        "Noc do podne Gm",
+        "Slucajno Gm",
+        "Prekasno Gm"
     ] },
     { name: "Playlist 10", songs: [
-        "minus i plus",
-        "dani su bez broja",
-        "nepravda",
-        "hajde da ludujemo",
-        "sto sad ljubav"
+        "Minus i plus Am",
+        "Dani su bez broja Gm",
+        "Nepravda Em",
+        "Hajde da ludujemo A",
+        "Sto sad ljubav A"
     ] },
     { name: "Playlist 11", songs: [
-        "ti nemas pojma",
-        "postela rozi",
-        "kucka neverna",
-        "ej bi si",
-        "zabava do besvest",
-        "dirlada"
+        "Postela rozi Am",
+        "Kucka neverna Am",
+        "Zabava do besvest G",
+        "Ej bi si B"
     ] },
     { name: "Playlist 12", songs: [
-        "trazio si sve",
-        "koktel ljubavi",
-        "tek je 12 sati",
-        "kralja kokaina",
-        "ti si mi u mislima"
+        "Trazio si sve Am",
+        "Koktel ljubavi Hm",
+        "Tek je 12 sati Hm",
+        "Kralja kokaina Hm"
     ] },
     { name: "Playlist 13", songs: [
-        "sedam noci sedam dana",
-        "paranoja",
-        "a u medjuvremenu",
-        "imam samo jednu zelju", 
-        "mjerkam te mjerkam",
+        "Paranoja A",
+        "Sedam noci sedam dana.Hm",
+        "A u medjuvremenu Gm \n gm F dm Es gm + cm dm Es dm",
+        "Imam samo jednu zelju Am",
+        "Mjerkam te mjerkam G"
     ] },
     { name: "Playlist 14", songs: [
-        "bele ruze",
-        "ljepsa od noci",
-        "sam sam",
-        "litar krvi",
-        "posle tebe tugo moja"
+        "Bele ruze Gm",
+        "Ljepsa od noci Cm",
+        "Litar krvi Cm",
+        "Posle tebe tugo moja Cm"
     ] },
     { name: "Playlist 15", songs: [
-        "sredinom",
-        "cinim pravu stvar",
-        "u ljubav vjere nemam",
-        "92",
-        "usne boje vina",
-        "sve moje njeno je",
-        "nesto mi govori"
+        "Sredinom Am",
+        "Cinim pravu stvar G",
+        "U ljubav vjere nemam B",
+        "92 B"
+    ] },
+    { name: "Playlist 16", songs: [
+        "Usne boje vina Am \n Am C G F + Dm G - Am Dm x3 G",
+        "Sve moje njeno je Gm \n Gm Es F - Gm C F x4 Gm F x3 Es Dm - Es Gm Cm D Gm Cm Es F",
+        "Nesto mi govori Fm"
     ] },
     { name: "Other", songs: [
        "Bez tebe Esm",
@@ -153,26 +150,44 @@ function showPlaylist(index) {
   const playlist = playlists[index];
   detailTitle.textContent = playlist.name;
   songs.innerHTML = "";
-  const chordRegex = /\s([A-H](?:#|b|is|es|s)?m?)$/i;
+
+  // chord at end of a line (supports Am, Gm, F#, Bb, Es, As, etc.)
+  const chordRegex = /\s([A-H](?:#|b|is|es|s)?m?)\s*$/i;
 
   playlist.songs.forEach(song => {
     const li = document.createElement("li");
-    const match = song.match(chordRegex);
+
+    // split into [first line, second line...] (keep everything after as one block)
+    const parts = song.split("\n");
+    const firstLine = parts[0].trim();
+    const restLines = parts.slice(1).join("\n").trim(); // progression, if any
+
+    const match = firstLine.match(chordRegex);
 
     if (match) {
-      const chordPart = match[1];
-      const titlePart = song.replace(chordRegex, "");
+      const chordPart = match[1];                         // e.g. Am
+      const titlePart = firstLine.replace(chordRegex, ""); // e.g. Usne boje vina
 
       li.innerHTML = `
-        <span class="song-title">${titlePart}</span>
-        <span class="song-chord">${chordPart}</span>
+        <div class="song-row">
+          <span class="song-title">${titlePart}</span>
+          <span class="song-chord">${chordPart}</span>
+        </div>
+        ${restLines ? `<div class="song-prog">${restLines}</div>` : ``}
       `;
     } else {
-      li.innerHTML = `<span class="song-title">${song}</span>`;
+      // no ending chord on the first line
+      li.innerHTML = `
+        <div class="song-row">
+          <span class="song-title">${firstLine}</span>
+        </div>
+        ${restLines ? `<div class="song-prog">${restLines}</div>` : ``}
+      `;
     }
 
     songs.appendChild(li);
   });
+
   if (window.innerWidth < 768) {
     document.getElementById("detail").scrollIntoView({
       behavior: "smooth",
