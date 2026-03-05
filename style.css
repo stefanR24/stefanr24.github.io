@@ -1,0 +1,216 @@
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+:root{
+  --bg: #0f1115;
+  --card: #151a23;
+  --card2: #121622;
+  --stroke: #273042;
+
+  --text: #e7e9ee;
+  --muted: #b7bfd1;
+
+  --accent: #6ea8ff;
+  --accent2: #8b5cf6;
+
+  --radius: 18px;
+  --shadow: 0 10px 25px rgba(0,0,0,.35);
+
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 20px;
+}
+
+body{
+  margin: 0;
+  padding: var(--space-3);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: radial-gradient(1200px 800px at 20% -10%, rgba(110,168,255,.18), transparent 55%),
+              radial-gradient(900px 700px at 110% 10%, rgba(139,92,246,.14), transparent 60%),
+              var(--bg);
+  color: var(--text);
+}
+
+body{
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+#hub{
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-3) 0;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+#hub li{ margin: 0; }
+
+#hub button{
+  width: 100%;
+  padding: 14px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--stroke);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)),
+              var(--card2);
+  color: var(--text);
+
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .2px;
+
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  box-shadow: 0 6px 14px rgba(0,0,0,.22);
+  transition: transform .08s ease, filter .15s ease, border-color .15s ease;
+}
+
+#hub button:hover{
+  filter: brightness(1.07);
+  border-color: rgba(110,168,255,.35);
+}
+
+#hub button:active{
+  transform: scale(0.98);
+}
+
+#detail{
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)),
+              var(--card);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  box-shadow: var(--shadow);
+}
+
+#detailTitle{
+  margin: 0 0 var(--space-3) 0;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: .2px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+#detailTitle::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 64px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  opacity: .95;
+}
+
+#songs{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  display: grid;
+  gap: 10px;
+}
+
+#songs li{
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(39,48,66,.8);
+  background: rgba(10,12,18,.35);
+  color:white;
+  font-size: 25px;
+  font-weight:bold;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+#songs li:active{
+  transform: translateY(1px);
+}
+
+@media (max-width: 360px){
+  body{ padding: 14px; }
+  #hub{ grid-template-columns: 1fr; }
+  #hub button{ padding: 14px 14px; }
+}
+@media (min-width: 768px){
+  body{
+    max-width: 1000px;
+    padding: 22px;
+
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 18px;
+  }
+
+  #hub{
+    grid-template-columns: 1fr;
+    align-content: start;
+  }
+
+  #detail{
+    min-height: 360px;
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  #hub button{ transition: none; }
+}
+.song-title {
+  color: #cfd5e3;
+}
+
+.song-chord {
+  margin-left: 8px;
+  font-weight: 700;
+  color: #6ea8ff; 
+}
+#songs li{
+  display: flex;
+  flex-direction: column;   /* important */
+  align-items: stretch;
+  gap: 6px;
+}
+
+.song-title{
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: #cfd5e3;
+}
+
+.song-chord{
+  flex: 0 0 auto;
+  margin-left: 12px;
+  font-weight: 800;
+  color: #6ea8ff;
+  white-space: nowrap;
+  letter-spacing: .3px;
+}
+html {
+  scroll-behavior: smooth;
+}
+.song-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+baza i sistemi neno 
+.song-chord{
+  color: #3b82f6; /* your blue */
+  font-weight: 700;
+}
+
+.song-prog{
+  margin-top: 6px;
+  color: yellow; /* “some other color” */
+  font-size: 0.95em;
+  white-space: pre-wrap; /* keeps spacing/newlines if you ever have them */
+}

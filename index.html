@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Playlist Hub</title>
+    <link rel="stylesheet" href="./style.css?v=2">
+</head>
+<body>
+    <ul id="hub"></ul>
+    <section id="detail">
+        <h2 id="detailTitle">Избери Playlist</h2>
+        <ul id="songs"></ul>
+    </section>
+<script>
+const playlists = [
+    { name: "Playlist 1", songs: [
+    "Devojka Gm",
+    "A ja ludujem Gm",
+    "Kad si rekla da me volis Gm",
+   "Ostani Gm"] },
+    { name: "Playlist 2", songs: [
+    
+        "Slavija Gm",
+        "Godinama Gm",
+        "Nikotin Am"
+    ] },
+    { name: "Playlist 3", songs: [
+        "Potrazi me Gism", 
+        "Dobro da nije neko vece zlo Am",
+        "Rani na usnite Hm"
+    ] },
+    { name: "Playlist 4", songs: 
+    [
+        "Rano A",
+        "Ko nam brani A", 
+        "Milimetar Gm",
+        "Pjevam danju pjevam noci Gm"
+    ] },
+    { name: "Playlist 5", songs: [
+        "Bosnom behar Gm",
+        "Vo kosi da ti spijam Asm",
+        "Ledena D" ,
+        "Nesto lepi treba da se desi Gm",
+        "Jos ti se nadam Am",
+        "Mjesecina Gm"
+    ] },
+    { name: "Playlist 6", songs: [
+        "Ruski rulet Gm", 
+        "Hitna Gm",
+        "Pisacu joj pisma duga Gm"
+    ] },
+    { name: "Playlist 7", songs: [
+        "Alkoholna poplava Hm",
+        "Magija Cm",
+        "Nikoj kako tebe Cm",
+        "100% Cm" 
+    ] },
+    { name: "Playlist 8", songs: [
+        "Ucini mi pravu stvar Gm",
+        "Pusti modu Gm",
+        "Drska zeno plava Gm",
+        "Kremen Am"
+    ] },
+    { name: "Playlist 9", songs: [
+        "Lazu te Gm",
+        "Bezobrazno su zelene B",
+        "Noc do podne Gm",
+        "Slucajno Gm",
+        "Prekasno Gm"
+    ] },
+    { name: "Playlist 10", songs: [
+        "Minus i plus Am",
+        "Dani su bez broja Gm",
+        "Nepravda Em",
+        "Hajde da ludujemo A",
+        "Sto sad ljubav A"
+    ] },
+    { name: "Playlist 11", songs: [
+        "Postela rozi Am",
+        "Kucka neverna Am",
+        "Zabava do besvest G",
+        "Ej bi si B"
+    ] },
+    { name: "Playlist 12", songs: [
+        "Trazio si sve Am",
+        "Koktel ljubavi Hm",
+        "Tek je 12 sati Hm",
+        "Kralja kokaina Hm"
+    ] },
+    { name: "Playlist 13", songs: [
+        "Paranoja A",
+        "Sedam noci sedam dana.Hm",
+        "A u medjuvremenu Gm \n gm F dm Es gm + cm dm Es dm",
+        "Imam samo jednu zelju Am",
+        "Mjerkam te mjerkam G"
+    ] },
+    { name: "Playlist 14", songs: [
+        "Bele ruze Gm",
+        "Ljepsa od noci Cm",
+        "Litar krvi Cm",
+        "Posle tebe tugo moja Cm"
+    ] },
+    { name: "Playlist 15", songs: [
+        "Sredinom Am",
+        "Cinim pravu stvar G",
+        "U ljubav vjere nemam B",
+        "92 B"
+    ] },
+    { name: "Playlist 16", songs: [
+        "Usne boje vina Am \n Am C G F + Dm G - Am Dm x3 G",
+        "Sve moje njeno je Gm \n Gm Es F - Gm C F x4 Gm F x3 Es Dm - Es Gm Cm D Gm Cm Es F",
+        "Nesto mi govori Fm"
+    ] },
+    { name: "Other", songs: [
+       "Bez tebe Esm",
+       "Dugujem ti sebe Am",
+       "Pesma od bola Gm",
+       "Djurdjevdan Dm",
+       "Ja volim Am",
+       "Reci mi da znam Hm",
+       "Moje je pjesma lagana  Fism",
+       "Ringispil Em",
+       "Beograd Gm",
+       "Jorgovani Fm",
+       "Ti mozes sve Dm",
+       "Da si tu Gm",
+       "Ne pitaj Am",
+       "Bolis me Hm",
+       "Oprosti mi sto te volim Dm",
+       "9000 Gm",
+       "Bolje biti pijan Am",
+       "Noc mi te duguje Gm"
+    ] }
+];
+const hub = document.getElementById("hub");
+const detailTitle = document.getElementById("detailTitle");
+const songs = document.getElementById("songs");
+playlists.forEach((playlist, index) => {
+    const li = document.createElement("li");
+    const button = document.createElement("button");
+    button.textContent = playlist.name;
+    button.onclick = function() {
+        showPlaylist(index);
+    };
+    li.appendChild(button);
+    hub.appendChild(li);
+});
+function showPlaylist(index) {
+  const playlist = playlists[index];
+  detailTitle.textContent = playlist.name;
+  songs.innerHTML = "";
+
+  // chord at end of a line (supports Am, Gm, F#, Bb, Es, As, etc.)
+  const chordRegex = /\s([A-H](?:#|b|is|es|s)?m?)\s*$/i;
+
+  playlist.songs.forEach(song => {
+    const li = document.createElement("li");
+
+    // split into [first line, second line...] (keep everything after as one block)
+    const parts = song.split("\n");
+    const firstLine = parts[0].trim();
+    const restLines = parts.slice(1).join("\n").trim(); // progression, if any
+
+    const match = firstLine.match(chordRegex);
+
+    if (match) {
+      const chordPart = match[1];                         // e.g. Am
+      const titlePart = firstLine.replace(chordRegex, ""); // e.g. Usne boje vina
+
+      li.innerHTML = `
+        <div class="song-row">
+          <span class="song-title">${titlePart}</span>
+          <span class="song-chord">${chordPart}</span>
+        </div>
+        ${restLines ? `<div class="song-prog">${restLines}</div>` : ``}
+      `;
+    } else {
+      // no ending chord on the first line
+      li.innerHTML = `
+        <div class="song-row">
+          <span class="song-title">${firstLine}</span>
+        </div>
+        ${restLines ? `<div class="song-prog">${restLines}</div>` : ``}
+      `;
+    }
+
+    songs.appendChild(li);
+  });
+
+  if (window.innerWidth < 768) {
+    document.getElementById("detail").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+}
+</script>
+</body>
+</html>
